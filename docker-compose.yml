@@ -1,0 +1,23 @@
+   pizza:
+    build: .
+    dockerfile: dockerfile_pizza
+    links:
+      - mysqldb:mysqldb
+    ports:
+      - "8080:8080"
+    volumes:
+      - /usr/local/tomcat/logs
+      - /usr/local/tomcat/webapps
+    container_name: pizza_app
+
+   mysqldb:
+    image: mysql
+    volumes:
+      - /var/lib/mysql
+    restart: always
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
